@@ -6,11 +6,16 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+   var selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
-    var appState = context.watch<MyAppState>();
-    var selectedIndex = appState.selectedIndex;
+   
 
     Widget page;
     switch (selectedIndex) {
@@ -19,44 +24,51 @@ class MyHomePage extends StatelessWidget {
         print('GeneratorPage');
         break;
       case 1:
-        page = Placeholder();
+        page = FavoritesPages();
         print('Placeholder');
         break;
       default:
         throw UnimplementedError('no widget for $selectedIndex');
     }
 
-    return Scaffold(
-      body: Row(
-        children: [
-          SafeArea(
-            child: NavigationRail(
-              extended: false,
-              destinations: [
-                NavigationRailDestination(
-                  icon: Icon(Icons.home),
-                  label: Text('Home'),
+    return LayoutBuilder(
+      builder: (context, constraiants) {
+        return Scaffold(
+          body: Row(
+            children: [
+              SafeArea(
+                child: NavigationRail(
+
+                  extended: constraiants.maxWidth >= 600,
+                  destinations: [
+                    NavigationRailDestination(
+                      icon: Icon(Icons.home),
+                      label: Text('Home'),
+                    ),
+                    NavigationRailDestination(
+                      icon: Icon(Icons.favorite),
+                      label: Text('Favorites'),
+                    ),
+                  ],
+                  selectedIndex: selectedIndex,
+                  onDestinationSelected: (value) {
+                    // ↓ Replace print with this.
+                    setState(() {
+                      selectedIndex = value;
+                    });
+                  },
                 ),
-                NavigationRailDestination(
-                  icon: Icon(Icons.favorite),
-                  label: Text('Favorites'),
+              ),
+              Expanded(
+                child: Container(
+                  color: Theme.of(context).colorScheme.primaryContainer,
+                  child: page,
                 ),
-              ],
-              selectedIndex: appState.selectedIndex,
-              onDestinationSelected: (value) {
-                // ↓ Replace print with this.
-                appState.onDestinationSelected(value);
-              },
-            ),
+              ),
+            ],
           ),
-          Expanded(
-            child: Container(
-              color: Theme.of(context).colorScheme.primaryContainer,
-              child: page,
-            ),
-          ),
-        ],
-      ),
+        );
+      }
     );
   }
 }
@@ -106,6 +118,15 @@ class MyAppState extends ChangeNotifier {
     selectedIndex = value;
     notifyListeners();
   }
+  
+  removeFavorites( WordPair item) {
+    print('on delete favorites');
+    favorites.remove(item);
+
+    notifyListeners();
+  }
+
+  
 
   
 }
@@ -172,6 +193,43 @@ class BigCard extends StatelessWidget {
         padding: const EdgeInsets.all(30.0),
         child: Text(pair.asUpperCase),
       ),
+    );
+  }
+}
+
+class FavoritesPages extends StatelessWidget {
+  const FavoritesPages({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    var appState = context.watch<MyAppState>();
+
+    if (appState.favorites.isEmpty) {
+      return Center(
+        child: Text('No favorites yet.'),
+      );
+    }
+
+  return ListView(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(20),
+          child: Text('You have '
+              '${appState.favorites.length} favorites:'),
+        ),
+        for (var pair in appState.favorites)
+          ListTile(
+            leading: Icon(Icons.thumb_up),
+            title: Text(pair.asLowerCase),
+            trailing: IconButton.filled(
+              onPressed: () => {
+                appState.removeFavorites(pair)
+              }, 
+              icon:Icon(Icons.delete)
+            ),
+            
+          ),
+      ],
     );
   }
 }
