@@ -6,6 +6,61 @@ void main() {
   runApp(const MyApp());
 }
 
+class MyHomePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    var appState = context.watch<MyAppState>();
+    var selectedIndex = appState.selectedIndex;
+
+    Widget page;
+    switch (selectedIndex) {
+      case 0:
+        page = GeneratorPage();
+        print('GeneratorPage');
+        break;
+      case 1:
+        page = Placeholder();
+        print('Placeholder');
+        break;
+      default:
+        throw UnimplementedError('no widget for $selectedIndex');
+    }
+
+    return Scaffold(
+      body: Row(
+        children: [
+          SafeArea(
+            child: NavigationRail(
+              extended: false,
+              destinations: [
+                NavigationRailDestination(
+                  icon: Icon(Icons.home),
+                  label: Text('Home'),
+                ),
+                NavigationRailDestination(
+                  icon: Icon(Icons.favorite),
+                  label: Text('Favorites'),
+                ),
+              ],
+              selectedIndex: appState.selectedIndex,
+              onDestinationSelected: (value) {
+                // ↓ Replace print with this.
+                appState.onDestinationSelected(value);
+              },
+            ),
+          ),
+          Expanded(
+            child: Container(
+              color: Theme.of(context).colorScheme.primaryContainer,
+              child: page,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -25,15 +80,16 @@ class MyApp extends StatelessWidget {
   }
 }
 
-
 class MyAppState extends ChangeNotifier {
   var current = WordPair.random();
+  var selectedIndex = 0;
 
-    void getNext() {
-        current = WordPair.random();
-        notifyListeners();
-    }
-   // ↓ Add the code below.
+  void getNext() {
+    current = WordPair.random();
+    notifyListeners();
+  }
+
+  // ↓ Add the code below.
   var favorites = <WordPair>[];
 
   void toggleFavorite() {
@@ -44,22 +100,28 @@ class MyAppState extends ChangeNotifier {
     }
     notifyListeners();
   }
+  
+  void onDestinationSelected(int value) {
+    print('onDestinationSelected'+ value.toString());
+    selectedIndex = value;
+    notifyListeners();
+  }
+
+  
 }
 
-class MyHomePage extends StatelessWidget {
-
-
+class GeneratorPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
-    var pair  = appState.current;
+    var pair = appState.current;
+
 
     IconData? iconBtnLike;
-    if(appState.favorites.contains(pair)) {
+    if (appState.favorites.contains(pair)) {
       iconBtnLike = Icons.thumb_up;
-    }
-    else {
-       iconBtnLike = Icons.thumb_up_outlined;
+    } else {
+      iconBtnLike = Icons.thumb_up_outlined;
     }
 
     return Scaffold(
@@ -74,15 +136,15 @@ class MyHomePage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton(
-                  onPressed: () {  appState.getNext(); },
-                  child: Text("Next")
-                ),
-
+                    onPressed: () {
+                      appState.getNext();
+                    },
+                    child: Text("Next")),
                 ElevatedButton.icon(
-                 onPressed: appState.toggleFavorite,
-                 label: Text("Like"),
-                 icon: Icon(iconBtnLike),
-                 )
+                  onPressed: appState.toggleFavorite,
+                  label: Text("Like"),
+                  icon: Icon(iconBtnLike),
+                )
               ],
             )
           ],
@@ -102,8 +164,7 @@ class BigCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    final theme =  Theme.of(context);
+    final theme = Theme.of(context);
 
     return Card(
       color: theme.colorScheme.primary,
