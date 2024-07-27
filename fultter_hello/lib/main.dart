@@ -30,46 +30,82 @@ class _MyHomePageState extends State<MyHomePage> {
       default:
         throw UnimplementedError('no widget for $selectedIndex');
     }
+    return LayoutBuilder(builder: (context, constraiants) {
 
-    return LayoutBuilder(
-      builder: (context, constraiants) {
-        return Scaffold(
-          body: Row(
-            children: [
-              SafeArea(
-                child: NavigationRail(
-
-                  extended: constraiants.maxWidth >= 600,
-                  destinations: [
-                    NavigationRailDestination(
-                      icon: Icon(Icons.home),
-                      label: Text('Home'),
-                    ),
-                    NavigationRailDestination(
-                      icon: Icon(Icons.favorite),
-                      label: Text('Favorites'),
-                    ),
-                  ],
-                  selectedIndex: selectedIndex,
-                  onDestinationSelected: (value) {
-                    // ↓ Replace print with this.
-                    setState(() {
-                      selectedIndex = value;
-                    });
-                  },
-                ),
-              ),
-              Expanded(
-                child: Container(
-                  color: Theme.of(context).colorScheme.primaryContainer,
-                  child: page,
-                ),
-              ),
-            ],
+      return Scaffold(
+      appBar: AppBar(
+          title: const Text('BottomNavigationBar Sample'),
+        ),
+      body: Center(
+        child: page,
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
           ),
-        );
-      }
-    );
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite),
+            label: 'Favorite',
+          ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(Icons.school),
+          //   label: 'School',
+          // ),
+        ],
+        currentIndex: selectedIndex,
+       // selectedItemColor: Colors.lightBlue[800],
+        onTap: (int index) {
+          setState(() {
+            selectedIndex = index;
+          });
+        },
+      ));
+    
+    });
+
+    // //#region Menu-Left
+    // return LayoutBuilder(
+    //   builder: (context, constraiants) {
+    //     return Scaffold(
+    //       body: Row(
+    //         children: [
+    //           SafeArea(
+    //             child: NavigationRail(
+
+    //               extended: constraiants.maxWidth >= 600,
+    //               destinations: [
+    //                 NavigationRailDestination(
+    //                   icon: Icon(Icons.home),
+    //                   label: Text('Home'),
+    //                 ),
+    //                 NavigationRailDestination(
+    //                   icon: Icon(Icons.favorite),
+    //                   label: Text('Favorites'),
+    //                 ),
+    //               ],
+    //               selectedIndex: selectedIndex,
+    //               onDestinationSelected: (value) {
+    //                 // ↓ Replace print with this.
+    //                 setState(() {
+    //                   selectedIndex = value;
+    //                 });
+    //               },
+    //             ),
+    //           ),
+    //           Expanded(
+    //             child: Container(
+    //               color: Theme.of(context).colorScheme.primaryContainer,
+    //               child: page,
+    //             ),
+    //           ),
+    //         ],
+    //       ),
+    //     );
+    //   }
+    // );
+    // //#region
   }
 }
 
@@ -225,7 +261,10 @@ class FavoritesPages extends StatelessWidget {
               onPressed: () => {
                 appState.removeFavorites(pair)
               }, 
-              icon:Icon(Icons.delete)
+              icon:Icon(
+                Icons.delete,
+                color: Colors.white60,
+              )
             ),
             
           ),
