@@ -12,11 +12,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-   var selectedIndex = 0;
+  var selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
-   
-
     Widget page;
     switch (selectedIndex) {
       case 0:
@@ -31,38 +29,36 @@ class _MyHomePageState extends State<MyHomePage> {
         throw UnimplementedError('no widget for $selectedIndex');
     }
     return LayoutBuilder(builder: (context, constraiants) {
-
       return Scaffold(
-      appBar: AppBar(
-          title: const Text('BottomNavigationBar Sample'),
-        ),
-      body: Center(
-        child: page,
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
+          appBar: AppBar(
+            title: const Text('Generate Wording'),
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
-            label: 'Favorite',
+          body: Center(
+            child: page,
           ),
-          // BottomNavigationBarItem(
-          //   icon: Icon(Icons.school),
-          //   label: 'School',
-          // ),
-        ],
-        currentIndex: selectedIndex,
-       // selectedItemColor: Colors.lightBlue[800],
-        onTap: (int index) {
-          setState(() {
-            selectedIndex = index;
-          });
-        },
-      ));
-    
+          bottomNavigationBar: BottomNavigationBar(
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                label: 'Home',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.favorite),
+                label: 'Favorite',
+              ),
+              // BottomNavigationBarItem(
+              //   icon: Icon(Icons.school),
+              //   label: 'School',
+              // ),
+            ],
+            currentIndex: selectedIndex,
+            // selectedItemColor: Colors.lightBlue[800],
+            onTap: (int index) {
+              setState(() {
+                selectedIndex = index;
+              });
+            },
+          ));
     });
 
     // //#region Menu-Left
@@ -148,23 +144,19 @@ class MyAppState extends ChangeNotifier {
     }
     notifyListeners();
   }
-  
+
   void onDestinationSelected(int value) {
-    print('onDestinationSelected'+ value.toString());
+    print('onDestinationSelected' + value.toString());
     selectedIndex = value;
     notifyListeners();
   }
-  
-  removeFavorites( WordPair item) {
+
+  removeFavorites(WordPair item) {
     print('on delete favorites');
     favorites.remove(item);
 
     notifyListeners();
   }
-
-  
-
-  
 }
 
 class GeneratorPage extends StatelessWidget {
@@ -172,7 +164,6 @@ class GeneratorPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
     var pair = appState.current;
-
 
     IconData? iconBtnLike;
     if (appState.favorites.contains(pair)) {
@@ -246,7 +237,7 @@ class FavoritesPages extends StatelessWidget {
       );
     }
 
-  return ListView(
+    return ListView(
       children: [
         Padding(
           padding: const EdgeInsets.all(20),
@@ -257,18 +248,55 @@ class FavoritesPages extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.thumb_up),
             title: Text(pair.asLowerCase),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute( builder: (context) {
+                  return FavoritesPageDetail(pair: pair);
+                }),
+              );
+            },
             trailing: IconButton.filled(
-              onPressed: () => {
-                appState.removeFavorites(pair)
-              }, 
-              icon:Icon(
-                Icons.delete,
-                color: Colors.white60,
-              )
-            ),
-            
+                onPressed: () => {appState.removeFavorites(pair)},
+                icon: Icon(
+                  Icons.delete,
+                  color: Colors.white60,
+                )),
           ),
       ],
     );
+  }
+}
+
+class FavoritesPageDetail extends StatelessWidget {
+  const FavoritesPageDetail({
+  super.key,
+  required this.pair
+  });
+
+  final WordPair pair;
+
+  @override
+  Widget build(BuildContext context) {
+    
+      return Scaffold(
+            appBar: AppBar(
+            title: const Text('FavoritesPageDetail'),
+          ),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+                Container(
+                child:  Text(
+                  pair.asUpperCase , 
+                  style: const TextStyle(fontSize: 25),
+                ),
+              ),
+            
+            ],
+          ),
+        ),
+      );
   }
 }
