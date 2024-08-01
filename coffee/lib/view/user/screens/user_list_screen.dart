@@ -54,50 +54,56 @@ class _UserListScreenState extends State<UserListScreen> {
   }
 
   Widget get floatingActionButton {
-    return FloatingActionButton(
-      onPressed: () async {
-        late User user;
-        bool isCreate = await createDialog(
-          context: context,
-          userData: (User userValue) => user = userValue,
-        );
-
-        if (isCreate) {
-          _controller.createUser(user);
-          if (!mounted) return;
-          showDialog(
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 100),
+      child: FloatingActionButton(
+        backgroundColor: appColorPrimary,
+        onPressed: () async {
+          late User user;
+          bool isCreate = await createDialog(
             context: context,
-            builder: (_) {
-              return Obx(
-                () {
-                  switch (_controller.apiStatus.value) {
-                    case ApiState.loading:
-                      return const ProgressDialog(
-                        title: "Creating user...",
-                        isProgressed: true,
-                      );
-                    case ApiState.success:
-                      return ProgressDialog(
-                        title: "Successfully created",
-                        onPressed: () {
-                          _controller.getUserList();
-                          Navigator.pop(context);
-                        },
-                        isProgressed: false,
-                      );
-                    case ApiState.failure:
-                      return RetryDialog(
-                        title: _controller.errorMessage.value,
-                        onRetryPressed: () => _controller.createUser(user),
-                      );
-                  }
-                },
-              );
-            },
+            userData: (User userValue) => user = userValue,
           );
-        }
-      },
-      child: const Icon(Icons.add),
+      
+          if (isCreate) {
+            _controller.createUser(user);
+            if (!mounted) return;
+            showDialog(
+              context: context,
+              builder: (_) {
+                return Obx(
+                  () {
+                    switch (_controller.apiStatus.value) {
+                      case ApiState.loading:
+                        return const ProgressDialog(
+                          title: "Creating user...",
+                          isProgressed: true,
+                        );
+                      case ApiState.success:
+                        return ProgressDialog(
+                          title: "Successfully created",
+                          onPressed: () {
+                            _controller.getUserList();
+                            Navigator.pop(context);
+                          },
+                          isProgressed: false,
+                        );
+                      case ApiState.failure:
+                        return RetryDialog(
+                          title: _controller.errorMessage.value,
+                          onRetryPressed: () => _controller.createUser(user),
+                        );
+                    }
+                  },
+                );
+              },
+            );
+          }
+        },
+        child: const Icon(Icons.add,
+        color: appTextColorPrimary,
+        ),
+      ),
     );
   }
 
