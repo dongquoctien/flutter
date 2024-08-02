@@ -8,7 +8,8 @@ class TodoRepository with RepositoryHelper<ToDo> {
 
   const TodoRepository({required this.todoApi});
 
-  Future<Either<String, List<ToDo>>> getTodos(int userId, {TodoStatus? status}) async {
+  Future<Either<String, List<ToDo>>> getTodos(int userId,
+      {TodoStatus? status}) async {
     return checkItemsFailOrSuccess(todoApi.getTodos(userId, status: status));
   }
 

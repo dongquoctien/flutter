@@ -8,8 +8,10 @@ class UserRepository with RepositoryHelper<User> {
 
   UserRepository({required this.userApi});
 
-  Future<Either<String, List<User>>> getUsers({Gender? gender, UserStatus? status}) async {
-    return checkItemsFailOrSuccess(userApi.getUsers(gender: gender, status: status));
+  Future<Either<String, List<User>>> getUsers(
+      {Gender? gender, UserStatus? status}) async {
+    return checkItemsFailOrSuccess(
+        userApi.getUsers(gender: gender, status: status));
   }
 
   Future<Either<String, bool>> createUser(User user) async {

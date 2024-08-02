@@ -64,7 +64,7 @@ class _UserListScreenState extends State<UserListScreen> {
             context: context,
             userData: (User userValue) => user = userValue,
           );
-      
+
           if (isCreate) {
             _controller.createUser(user);
             if (!mounted) return;
@@ -100,8 +100,9 @@ class _UserListScreenState extends State<UserListScreen> {
             );
           }
         },
-        child: const Icon(Icons.add,
-        color: appTextColorPrimary,
+        child: const Icon(
+          Icons.add,
+          color: appTextColorPrimary,
         ),
       ),
     );

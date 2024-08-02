@@ -5,7 +5,8 @@ import 'package:coffee/data/model/user/user.dart';
 import 'package:dartz/dartz.dart';
 import 'package:get/get.dart';
 
-class UserController extends GetxController with StateMixin<List<User>>, BaseController {
+class UserController extends GetxController
+    with StateMixin<List<User>>, BaseController {
   final UserRepository userRepository;
 
   UserController({required this.userRepository});

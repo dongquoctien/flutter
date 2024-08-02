@@ -1,6 +1,6 @@
 import 'package:coffee/core/app_style.dart';
 import 'package:coffee/di.dart';
-import 'package:coffee/view/navigation/main_navigation.dart';
+import 'package:coffee/view/navigation/main_bottom_navigation.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
@@ -16,10 +16,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(seedColor: appColorPrimary)
-      ),
-      home: const AppNavigation(),
+          useMaterial3: true,
+          colorScheme: ColorScheme.fromSeed(seedColor: appColorPrimary)),
+      home: const AppMainBottomNavigation(),
     );
   }
 }

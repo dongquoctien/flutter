@@ -5,7 +5,8 @@ import 'package:coffee/data/model/post/post.dart';
 import 'package:coffee/data/model/user/user.dart';
 import 'package:coffee/repository/post/post_repository.dart';
 
-class PostController extends GetxController with StateMixin<List<Post>>, BaseController {
+class PostController extends GetxController
+    with StateMixin<List<Post>>, BaseController {
   RxInt postLength = 0.obs;
 
   final PostRepository postRepository;
@@ -26,7 +27,8 @@ class PostController extends GetxController with StateMixin<List<Post>>, BaseCon
 
   Future<void> getPosts(User user) async {
     change(null, status: RxStatus.loading());
-    Either<String, List<Post>> failureOrSuccess = (await postRepository.getPosts(user));
+    Either<String, List<Post>> failureOrSuccess =
+        (await postRepository.getPosts(user));
 
     failureOrSuccess.fold(
       (String failure) {

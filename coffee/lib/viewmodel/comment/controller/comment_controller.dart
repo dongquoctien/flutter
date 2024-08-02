@@ -4,7 +4,8 @@ import 'package:coffee/data/model/comment/comment.dart';
 import 'package:dartz/dartz.dart';
 import 'package:get/get.dart';
 
-class CommentController extends GetxController with StateMixin<List<Comment>>, BaseController {
+class CommentController extends GetxController
+    with StateMixin<List<Comment>>, BaseController {
   final CommentRepository commentRepository;
 
   CommentController({required this.commentRepository});

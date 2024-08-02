@@ -9,15 +9,18 @@ class ToDoApi with ApiHelper<ToDo> {
   ToDoApi({required this.dioClient});
 
   Future<bool> createTodo(ToDo todo) async {
-    return await makePostRequest(dioClient.dio.post(ApiConfig.todos, data: todo));
+    return await makePostRequest(
+        dioClient.dio.post(ApiConfig.todos, data: todo));
   }
 
   Future<bool> updateTodo(ToDo todo) async {
-    return await makePutRequest(dioClient.dio.put("${ApiConfig.todos}/${todo.id}", data: todo));
+    return await makePutRequest(
+        dioClient.dio.put("${ApiConfig.todos}/${todo.id}", data: todo));
   }
 
   Future<bool> deleteTodo(ToDo todo) async {
-    return await makeDeleteRequest(dioClient.dio.delete("${ApiConfig.todos}/${todo.id}"));
+    return await makeDeleteRequest(
+        dioClient.dio.delete("${ApiConfig.todos}/${todo.id}"));
   }
 
   Future<List<ToDo>> getTodos(int userId, {TodoStatus? status}) async {

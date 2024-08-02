@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-const Color appColorPrimary =  Color.fromRGBO(0, 111, 60, 1);
-const Color appTextColorPrimary =  Color.fromRGBO(255, 255, 255, 1);
+const Color appColorPrimary = Color.fromRGBO(0, 111, 60, 1);
+const Color appTextColorPrimary = Color.fromRGBO(255, 255, 255, 1);
 
 const List<Color> colorList = [
   Color(0xFFF4511E),

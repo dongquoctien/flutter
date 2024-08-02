@@ -4,7 +4,8 @@ import 'package:coffee/data/model/todo/todo.dart';
 import 'package:dartz/dartz.dart';
 import 'package:get/get.dart';
 
-class ToDoController extends GetxController with StateMixin<List<ToDo>>, BaseController {
+class ToDoController extends GetxController
+    with StateMixin<List<ToDo>>, BaseController {
   List<ToDo> todoList = <ToDo>[].obs;
   RxInt todosCount = 0.obs;
 
