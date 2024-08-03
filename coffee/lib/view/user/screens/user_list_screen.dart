@@ -28,7 +28,7 @@ class UserListScreen extends StatefulWidget {
 
 class _UserListScreenState extends State<UserListScreen> {
   final UserController _controller = getIt<UserController>();
-
+  
   PreferredSizeWidget get _appBar {
     return AppBar(
       leading: IconButton(

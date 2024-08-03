@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:coffee/common/network/dio_exception.dart';
+import 'package:coffee/common/network/model/api_coffee_result.dart';
 import 'package:coffee/core/app_extension.dart';
 import 'package:dio/dio.dart';
 import 'dart:convert';
@@ -43,6 +46,21 @@ abstract mixin class ApiHelper<T> {
     );
     if (response.statusCode.success) {
       return items;
+    } else {
+      throw DioExceptions;
+    }
+  }
+
+  Future<T> makeGetRequestInfo(Future<Response<dynamic>> apiCallback,
+      T Function(Map<String, dynamic> json) getJsonCallback) async {
+    final Response response = await apiCallback;
+ 
+    final apiCoffeeResult = ApiCoffeeResult.fromJson(
+      json.decode(json.encode(response.data)),
+      getJsonCallback,
+    );
+    if (response.statusCode.success) {
+      return apiCoffeeResult.data ?? null as T;
     } else {
       throw DioExceptions;
     }

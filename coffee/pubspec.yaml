@@ -45,7 +45,7 @@ dependencies:
   get: ^4.6.6
   dartz: ^0.10.1
   freezed: ^2.4.7
-  carousel_slider: ^4.2.1
+  carousel_slider: ^4.2.1 
 
 dev_dependencies:
   flutter_test:

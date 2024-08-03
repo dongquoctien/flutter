@@ -1,6 +1,7 @@
-import 'package:coffee/core/app_style.dart';
 import 'package:coffee/view/user/screens/user_list_screen.dart';
 import 'package:flutter/material.dart';
+
+import '../home/screen/home_screen.dart';
 
 class AppMainBottomNavigation extends StatefulWidget {
   const AppMainBottomNavigation({super.key});
@@ -12,6 +13,7 @@ class AppMainBottomNavigation extends StatefulWidget {
 
 class _AppMainBottomNavigationState extends State<AppMainBottomNavigation> {
   int _currentIndex = 0;
+  static const double _size = 30;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +42,7 @@ class _AppMainBottomNavigationState extends State<AppMainBottomNavigation> {
         // activeIcon: Icon(Icons.home, color: appColorPrimary),
         icon: Icon(
           Icons.home_outlined,
-          size: 35,
+          size: _size,
         ),
         label: 'Home',
       ),
@@ -48,8 +50,8 @@ class _AppMainBottomNavigationState extends State<AppMainBottomNavigation> {
         //activeIcon: Icon(Icons.coffee, color: appColorPrimary),
         //icon: Badge(child: Icon(Icons.notifications_sharp)),
         icon: Icon(
-          Icons.coffee_outlined,
-          size: 35,
+          Icons.local_cafe_outlined,
+          size: _size,
         ),
         label: 'Products',
       ),
@@ -61,7 +63,7 @@ class _AppMainBottomNavigationState extends State<AppMainBottomNavigation> {
         // activeIcon: Icon(Icons.location_on, color: appColorPrimary),
         icon: Icon(
           Icons.location_on_outlined,
-          size: 35,
+          size: _size,
         ),
         label: 'Locations',
       ),
@@ -70,7 +72,7 @@ class _AppMainBottomNavigationState extends State<AppMainBottomNavigation> {
           label: Text('3'),
           child: Icon(
             Icons.mail_outlined,
-            size: 35,
+            size: _size,
           ),
         ),
         // activeIcon: Badge(
@@ -82,7 +84,7 @@ class _AppMainBottomNavigationState extends State<AppMainBottomNavigation> {
         // activeIcon: Icon(Icons.account_circle, color: appColorPrimary),
         icon: Icon(
           Icons.account_circle_outlined,
-          size: 35,
+          size: _size,
         ),
         label: 'Account',
       ),
@@ -92,11 +94,7 @@ class _AppMainBottomNavigationState extends State<AppMainBottomNavigation> {
   List<Widget> get getScreenPages {
     return <Widget>[
       /// Home page
-      const Center(
-        child: Card(
-          child: Text("Home Page"),
-        ),
-      ),
+      const HomeScreen(),
 
       /// Products page
       const Center(

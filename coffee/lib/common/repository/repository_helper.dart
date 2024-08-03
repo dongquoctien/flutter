@@ -26,4 +26,17 @@ mixin RepositoryHelper<T> {
       return Left(errorMessage);
     }
   }
+
+ // for coffee
+  Future<Either<String, T>> checkDataFailOrSuccess(
+    Future<T> apiCallback,
+  ) async {
+    try {
+      final T item = await apiCallback;
+      return Right(item);
+    } on DioException catch (e) {
+      final errorMessage = DioExceptions.fromDioError(e).toString();
+      return Left(errorMessage);
+    }
+  }
 }

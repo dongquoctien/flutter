@@ -1,4 +1,7 @@
+import 'package:coffee/data/api/home/home_page_api.dart';
+import 'package:coffee/repository/home/home_page_repository.dart';
 import 'package:coffee/viewmodel/comment/controller/comment_controller.dart';
+import 'package:coffee/viewmodel/home/home_page_controller.dart';
 import 'package:coffee/viewmodel/post/controller/post_controller.dart';
 import 'package:coffee/viewmodel/todo/controller/todo_controller.dart';
 import 'package:coffee/viewmodel/user/controller/user_controller.dart';
@@ -24,55 +27,60 @@ Future<void> init() async {
   // User api
   getIt.registerLazySingleton<UserApi>(
       () => UserApi(dioClient: getIt<DioClient>()));
-
-  // _Todo api
-  getIt.registerLazySingleton<ToDoApi>(
-      () => ToDoApi(dioClient: getIt<DioClient>()));
-
-  // Post api
-  getIt.registerLazySingleton<PostApi>(
-      () => PostApi(dioClient: getIt<DioClient>()));
-
-  // Comment api
-  getIt.registerLazySingleton<CommentApi>(
-      () => CommentApi(dioClient: getIt<DioClient>()));
-
   // User repository
   getIt.registerLazySingleton<UserRepository>(
     () => UserRepository(userApi: getIt<UserApi>()),
   );
-
-// _Todo repository
-  getIt.registerLazySingleton<TodoRepository>(
-    () => TodoRepository(todoApi: getIt<ToDoApi>()),
-  );
-
-  // Post repository
-  getIt.registerLazySingleton<PostRepository>(
-    () => PostRepository(postApi: getIt<PostApi>()),
-  );
-  // Comment repository
-  getIt.registerLazySingleton<CommentRepository>(
-    () => CommentRepository(commentApi: getIt<CommentApi>()),
-  );
-
   //UserController
   getIt.registerFactory(
     () => UserController(userRepository: getIt<UserRepository>()),
   );
 
+  // _Todo api
+  getIt.registerLazySingleton<ToDoApi>(
+      () => ToDoApi(dioClient: getIt<DioClient>()));
+  // _Todo repository
+  getIt.registerLazySingleton<TodoRepository>(
+    () => TodoRepository(todoApi: getIt<ToDoApi>()),
+  );
   //TodoController
   getIt.registerFactory(
     () => ToDoController(todoRepository: getIt<TodoRepository>()),
   );
 
-  //PostController
+  // Post api
+  getIt.registerLazySingleton<PostApi>(
+      () => PostApi(dioClient: getIt<DioClient>()));
+  // Post repository
+  getIt.registerLazySingleton<PostRepository>(
+    () => PostRepository(postApi: getIt<PostApi>()),
+  );
+   //PostController
   getIt.registerFactory(
     () => PostController(postRepository: getIt<PostRepository>()),
   );
-  //
-  // //CommentController
+
+  // Comment api
+  getIt.registerLazySingleton<CommentApi>(
+      () => CommentApi(dioClient: getIt<DioClient>()));
+  // Comment repository
+  getIt.registerLazySingleton<CommentRepository>(
+    () => CommentRepository(commentApi: getIt<CommentApi>()),
+  );
+  //CommentController
   getIt.registerFactory(
     () => CommentController(commentRepository: getIt<CommentRepository>()),
+  );
+
+  // HomePage api
+  getIt.registerLazySingleton<HomePageApi>(
+      () => HomePageApi(dioClient: getIt<DioClient>()));
+  // HomePage repository
+  getIt.registerLazySingleton<HomePageRepository>(
+    () => HomePageRepository(homePageApi: getIt<HomePageApi>()),
+  );
+  //HomePageController
+  getIt.registerFactory(
+    () => HomePageController(homePageRepository: getIt<HomePageRepository>()),
   );
 }

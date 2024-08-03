@@ -1,3 +1,4 @@
+import 'package:coffee/core/app_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
@@ -17,13 +18,13 @@ class SpinKitIndicator extends StatelessWidget {
     switch (type) {
       case SpinKitType.wave:
         widget = const SpinKitWave(
-          color: Color(0xFFF4511E),
+          color: appColorPrimary,
           size: 50.0,
         );
         break;
       case SpinKitType.circle:
         widget = const SpinKitFadingCircle(
-          color: Color(0xFFF4511E),
+          color: appColorPrimary,
           size: 50.0,
         );
     }

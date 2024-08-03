@@ -3,7 +3,7 @@ class ApiConfig {
 
   static const token =
       "6369de3d8da8e764cc3c1cbe4121bb6741875de2c30dfd39df8fd351b6a508ea";
-  static const String baseUrl = "https://gorest.co.in/public/v2";
+  // static const String baseUrl = "https://gorest.co.in/public/v2";
   static const Duration receiveTimeout = Duration(milliseconds: 15000);
   static const Duration connectionTimeout = Duration(milliseconds: 15000);
   static const String users = '/users';
@@ -14,4 +14,8 @@ class ApiConfig {
     'Authorization': 'Bearer $token',
     'content-Type': 'application/json',
   };
+
+  // Coffee
+  static const String baseUrl = "https://api-crownx.winmart.vn";
+  static const String homePages = "/it/api/plg/v1/homepage";
 }
