@@ -10,7 +10,7 @@ class PostRepository with RepositoryHelper<Post> {
   const PostRepository({required this.postApi});
 
   Future<Either<String, List<Post>>> getPosts(User user) async {
-    return checkItemsFailOrSuccess(postApi.getUsers(user));
+    return checkDataListResponse(postApi.getUsers(user));
   }
 
   Future<Either<String, bool>> createPost(Post post) async {

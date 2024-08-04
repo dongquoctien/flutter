@@ -1,6 +1,9 @@
+import 'package:coffee/data/api/home/category_api.dart';
 import 'package:coffee/data/api/home/home_page_api.dart';
+import 'package:coffee/repository/home/category_repository.dart';
 import 'package:coffee/repository/home/home_page_repository.dart';
 import 'package:coffee/viewmodel/comment/controller/comment_controller.dart';
+import 'package:coffee/viewmodel/home/category_controller.dart';
 import 'package:coffee/viewmodel/home/home_page_controller.dart';
 import 'package:coffee/viewmodel/post/controller/post_controller.dart';
 import 'package:coffee/viewmodel/todo/controller/todo_controller.dart';
@@ -55,7 +58,7 @@ Future<void> init() async {
   getIt.registerLazySingleton<PostRepository>(
     () => PostRepository(postApi: getIt<PostApi>()),
   );
-   //PostController
+  //PostController
   getIt.registerFactory(
     () => PostController(postRepository: getIt<PostRepository>()),
   );
@@ -82,5 +85,17 @@ Future<void> init() async {
   //HomePageController
   getIt.registerFactory(
     () => HomePageController(homePageRepository: getIt<HomePageRepository>()),
+  );
+
+  // Category api
+  getIt.registerLazySingleton<CategoryApi>(
+      () => CategoryApi(dioClient: getIt<DioClient>()));
+  // Category repository
+  getIt.registerLazySingleton<CategoryRepository>(
+    () => CategoryRepository(categoryApi: getIt<CategoryApi>()),
+  );
+  //Category Controller
+  getIt.registerFactory(
+    () => CategoryController(categoryRepository: getIt<CategoryRepository>()),
   );
 }

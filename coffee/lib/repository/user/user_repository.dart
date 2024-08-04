@@ -10,7 +10,7 @@ class UserRepository with RepositoryHelper<User> {
 
   Future<Either<String, List<User>>> getUsers(
       {Gender? gender, UserStatus? status}) async {
-    return checkItemsFailOrSuccess(
+    return checkDataListResponse(
         userApi.getUsers(gender: gender, status: status));
   }
 

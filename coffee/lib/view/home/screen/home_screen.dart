@@ -6,6 +6,7 @@ import 'package:coffee/core/app_style.dart';
 import 'package:coffee/data/model/home/home_page/header_banner.dart';
 import 'package:coffee/data/model/home/home_page/home_page.dart';
 import 'package:coffee/di.dart';
+import 'package:coffee/view/home/widget/category_item.dart';
 import 'package:coffee/viewmodel/home/home_page_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -20,6 +21,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final HomePageController _homeController = getIt<HomePageController>();
+
 
   Widget get floatingActionButton {
     return Padding(
@@ -47,64 +49,6 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Container(child: bannerList(homePage?.headerBanner ?? [])));
   }
 
-  Widget searchWidget(HomePage? homePage) {
-    
-    return const Padding(
-      padding: EdgeInsets.all(15),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          TextField(
-            decoration: InputDecoration(
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(30)),
-                borderSide: BorderSide(
-                  color: appColorGray,
-                  width: 1.0,
-                  style: BorderStyle.none,
-                ),
-              ),
-              filled: true,
-              hintStyle: TextStyle(color: Color.fromRGBO(171, 171, 171, 1)),
-              hintText: "What would you like to drink today?",
-              fillColor: appColorGray,
-              prefixIcon: Icon(
-                Icons.search,
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 15,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              Image(image: AssetImage(AppAsset.delivery), height: 40),
-              Padding(
-                padding: EdgeInsets.only(left: 15),
-                child: Text(
-                  "Delivery",
-                  style: TextStyle(
-                      fontSize: 18,
-                      color: appColorPrimary,
-                      fontWeight: FontWeight.bold),
-                ),
-              ),
-            ],
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: 5, bottom: 10),
-            child: Divider(
-              color: appColorGray,
-              height: 5,
-            ),
-          ),
-         
-        ],
-      ),
-    );
-  }
-
   Widget bannerList(List<HeaderBanner> headerBanners) {
     return CarouselSlider(
       options: CarouselOptions(
@@ -122,16 +66,70 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    
     return _homeController.obx(
-      (state) => Scaffold(
-        floatingActionButton: floatingActionButton,
-        appBar: appBar(state),
-        body: searchWidget(state),
-      ),
+      (state) {
+        
+        return Scaffold(
+          floatingActionButton: floatingActionButton,
+          appBar: appBar(state),
+          body: const Padding(
+          padding: EdgeInsets.all(15),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              TextField(
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(30)),
+                    borderSide: BorderSide.none
+                  ),
+                  filled: true,
+                  hintStyle: TextStyle(color: Color.fromRGBO(171, 171, 171, 1)),
+                  hintText: "What would you like to drink today?",
+                  fillColor: appColorGray,
+                  prefixIcon: Icon(
+                    Icons.search,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Image(image: AssetImage(AppAsset.delivery), height: 40),
+                  Padding(
+                    padding: EdgeInsets.only(left: 15),
+                    child: Text(
+                      "Delivery",
+                      style: TextStyle(
+                          fontSize: 18,
+                          color: appColorPrimary,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ],
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 5, bottom: 10),
+                child: Divider(
+                  color: appColorGray,
+                  height: 5,
+                ),
+              ),
+              CategoryItem(),
+              
+            ],
+          ),
+        ),
+        );
+      },
       onLoading: const SpinKitIndicator(type: SpinKitType.circle),
       onError: (error) => RetryDialog(
         title: "$error",
-        onRetryPressed: () => _homeController.getUserList(),
+        onRetryPressed: () => _homeController.getHomePages(),
       ),
       onEmpty: const EmptyWidget(message: "Page not found"),
     );
@@ -140,7 +138,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     print('HomePage -> initState');
-    _homeController.getUserList();
+    
+    _homeController.getHomePages();
     super.initState();
   }
 
@@ -156,3 +155,4 @@ class _HomeScreenState extends State<HomeScreen> {
     super.didUpdateWidget(oldWidget);
   }
 }
+

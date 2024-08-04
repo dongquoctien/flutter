@@ -10,7 +10,7 @@ class TodoRepository with RepositoryHelper<ToDo> {
 
   Future<Either<String, List<ToDo>>> getTodos(int userId,
       {TodoStatus? status}) async {
-    return checkItemsFailOrSuccess(todoApi.getTodos(userId, status: status));
+    return checkDataListResponse(todoApi.getTodos(userId, status: status));
   }
 
   Future<Either<String, bool>> createTodo(ToDo todo) async {

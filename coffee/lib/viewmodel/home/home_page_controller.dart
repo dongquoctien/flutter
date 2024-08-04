@@ -11,8 +11,7 @@ class HomePageController extends GetxController
 
   HomePageController({required this.homePageRepository});
 
-  
-  Future<void> getUserList() async {
+  Future<void> getHomePages() async {
     change(null, status: RxStatus.loading());
     Either<String, HomePage> failureOrSuccess =
         (await homePageRepository.getHomePage());
@@ -22,7 +21,7 @@ class HomePageController extends GetxController
         change(null, status: RxStatus.error(failure));
       },
       (HomePage homePage) {
-        if (homePage.isBlank ==true) {
+        if (homePage.isBlank == true) {
           change(null, status: RxStatus.empty());
         } else {
           homePage = homePage;

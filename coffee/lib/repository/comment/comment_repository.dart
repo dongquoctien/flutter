@@ -17,6 +17,6 @@ class CommentRepository with RepositoryHelper<Comment> {
   }
 
   Future<Either<String, List<Comment>>> getComments(int postId) async {
-    return checkItemsFailOrSuccess(commentApi.getComments(postId));
+    return checkDataListResponse(commentApi.getComments(postId));
   }
 }

@@ -51,10 +51,28 @@ abstract mixin class ApiHelper<T> {
     }
   }
 
-  Future<T> makeGetRequestInfo(Future<Response<dynamic>> apiCallback,
+  Future<List<T>> coffeeMakeGetRequestToList(Future<Response<dynamic>> apiCallback,
       T Function(Map<String, dynamic> json) getJsonCallback) async {
     final Response response = await apiCallback;
- 
+    print("json.decode(json.encode(response.data))");
+    print(json.decode(json.encode(response.data)));
+
+    final apiCoffeeResult = ApiCoffeeResult.fromJsonList(
+        json.decode(json.encode(response.data)),
+        getJsonCallback
+    );
+    print("coffeeMakeGetRequestToList");
+    if (response.statusCode.success) {
+      return apiCoffeeResult.dataList ?? [];
+    } else {
+      throw DioExceptions;
+    }
+  }
+
+  Future<T> coffeeMakeGetRequest(Future<Response<dynamic>> apiCallback,
+      T Function(Map<String, dynamic> json) getJsonCallback) async {
+    final Response response = await apiCallback;
+
     final apiCoffeeResult = ApiCoffeeResult.fromJson(
       json.decode(json.encode(response.data)),
       getJsonCallback,

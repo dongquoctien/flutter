@@ -9,7 +9,8 @@ class HomePageApi with ApiHelper<HomePage> {
   HomePageApi({required this.dioClient});
 
   Future<HomePage> getHomePage() async {
-    return await makeGetRequestInfo(
+    return await coffeeMakeGetRequest(
         dioClient.dio.get(ApiConfig.homePages), HomePage.fromJson);
   }
+
 }
