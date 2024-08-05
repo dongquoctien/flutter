@@ -13,7 +13,8 @@ class ApiCoffeeResult<T> {
   final List<T>? dataList;
   final Paging? paging;
 
-  const ApiCoffeeResult({this.code, this.message, this.data, this.dataList, this.paging});
+  const ApiCoffeeResult(
+      {this.code, this.message, this.data, this.dataList, this.paging});
 
   @override
   String toString() {
@@ -42,13 +43,14 @@ class ApiCoffeeResult<T> {
       data: null,
       dataList: _json['data'] == null
           ? null
-          :  List<T>.from(json.decode(json.encode(_json["data"])).map((item) => fromJson(item))),
+          : List<T>.from(json
+              .decode(json.encode(_json["data"]))
+              .map((item) => fromJson(item))),
       paging: _json['paging'] == null
           ? null
           : Paging.fromJson(_json['paging'] as Map<String, dynamic>),
     );
   }
-
 
   Map<String, dynamic> toJson(Map<String, dynamic> Function(T?) toJson) => {
         'code': code,
@@ -70,5 +72,4 @@ class ApiCoffeeResult<T> {
       paging: paging ?? this.paging,
     );
   }
-
 }

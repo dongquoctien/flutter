@@ -12,5 +12,4 @@ class HomePageApi with ApiHelper<HomePage> {
     return await coffeeMakeGetRequest(
         dioClient.dio.get(ApiConfig.homePages), HomePage.fromJson);
   }
-
 }

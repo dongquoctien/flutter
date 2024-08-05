@@ -11,5 +11,4 @@ class CategoryRepository with RepositoryHelper<Category> {
   Future<Either<String, List<Category>>> getCategories() async {
     return checkDataListResponse(categoryApi.getCategories());
   }
-
 }

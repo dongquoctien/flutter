@@ -11,5 +11,4 @@ class HomePageRepository with RepositoryHelper<HomePage> {
   Future<Either<String, HomePage>> getHomePage() async {
     return checkDataResponse(homePageApi.getHomePage());
   }
-
 }

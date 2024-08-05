@@ -1,5 +1,4 @@
 class ApiConfig {
- 
   ApiConfig._();
 
   static const token =
@@ -18,7 +17,8 @@ class ApiConfig {
 
   // Coffee
   static const String baseUrl = "https://api-crownx.winmart.vn";
+  
   static const String homePages = "/it/api/plg/v1/homepage";
   static const String categories = "/mt/api/plg/v1/category";
-
+  static const String getProducts = "/plg/api/web/item/collection";
 }

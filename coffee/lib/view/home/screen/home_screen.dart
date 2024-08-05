@@ -54,6 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
         autoPlay: true,
         viewportFraction: 1.0,
         enlargeCenterPage: false,
+        autoPlayInterval: const Duration(seconds: 3),
       ),
       items: headerBanners
           .map((item) => Center(

@@ -12,7 +12,8 @@ class CategoryController extends GetxController
 
   Future<void> getCategories() async {
     change(null, status: RxStatus.loading());
-    Either<String, List<Category>> failureOrSuccess =  (await categoryRepository.getCategories());
+    Either<String, List<Category>> failureOrSuccess =
+        (await categoryRepository.getCategories());
 
     failureOrSuccess.fold(
       (String failure) {

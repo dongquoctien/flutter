@@ -3,7 +3,6 @@ import 'package:dio/dio.dart' show DioException;
 import 'package:coffee/common/network/dio_exception.dart';
 
 mixin RepositoryHelper<T> {
-
   Future<Either<String, bool>> checkItemFailOrSuccess(
     Future<bool> apiCallback,
   ) async {

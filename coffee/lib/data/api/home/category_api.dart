@@ -12,5 +12,4 @@ class CategoryApi with ApiHelper<Category> {
     return await coffeeMakeGetRequestToList(
         dioClient.dio.get(ApiConfig.categories), Category.fromJson);
   }
-
 }

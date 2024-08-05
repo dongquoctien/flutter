@@ -82,5 +82,5 @@ class Children {
       description.hashCode ^
       priority.hashCode ^
       imageUrl.hashCode ^
-      bannerUrl.hashCode ;
+      bannerUrl.hashCode;
 }
