@@ -18,6 +18,7 @@ class _AppMainBottomNavigationState extends State<AppMainBottomNavigation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       bottomNavigationBar: BottomNavigationBar(
         onTap: (index) {
           setState(() {
