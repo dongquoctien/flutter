@@ -1,14 +1,14 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 
-import 'item.dart';
+import 'product_item.dart';
 
 @immutable
 class Product {
   final String? name;
   final String? description;
   final String? seoName;
-  final List<Item>? items;
+  final List<ProductItem>? items;
 
   const Product({this.name, this.description, this.seoName, this.items});
 
@@ -22,7 +22,7 @@ class Product {
         description: json['description'] as String?,
         seoName: json['seoName'] as String?,
         items: (json['items'] as List<dynamic>?)
-            ?.map((e) => Item.fromJson(e as Map<String, dynamic>))
+            ?.map((e) => ProductItem.fromJson(e as Map<String, dynamic>))
             .toList(),
       );
 
@@ -37,7 +37,7 @@ class Product {
     String? name,
     String? description,
     String? seoName,
-    List<Item>? items,
+    List<ProductItem>? items,
   }) {
     return Product(
       name: name ?? this.name,

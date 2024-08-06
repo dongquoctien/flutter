@@ -4,13 +4,13 @@ import 'package:coffee/repository/product/product_repository.dart';
 import 'package:dartz/dartz.dart';
 import 'package:get/get.dart';
 
-class UserController extends GetxController
+class ProductController extends GetxController
     with StateMixin<Product>, BaseController {
   final ProductRepository productRepository;
 
-  UserController({required this.productRepository});
+  ProductController({required this.productRepository});
 
-  Future<void> getUserList({
+  Future<void> getProducts({
     int? pageNumber =1,
     int? pageSize =4,
     String? slug ="san pham noi bat",

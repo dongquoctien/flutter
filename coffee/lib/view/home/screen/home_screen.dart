@@ -7,6 +7,8 @@ import 'package:coffee/data/model/home/home_page/header_banner.dart';
 import 'package:coffee/data/model/home/home_page/home_page.dart';
 import 'package:coffee/di.dart';
 import 'package:coffee/view/home/widget/category_item.dart';
+import 'package:coffee/view/product/widget/product_group.dart';
+import 'package:coffee/view/product/widget/product_list.dart';
 import 'package:coffee/viewmodel/home/home_page_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -72,67 +74,81 @@ class _HomeScreenState extends State<HomeScreen> {
           backgroundColor: Colors.white,
           floatingActionButton: floatingActionButton,
           appBar: appBar(state),
-          body: const Padding(
-            padding: EdgeInsets.all(15),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                TextField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(30)),
-                        borderSide: BorderSide.none),
-                    filled: true,
-                    hintStyle:
-                        TextStyle(color: Color.fromRGBO(171, 171, 171, 1)),
-                    hintText: "What would you like to drink today?",
-                    fillColor: appColorGray,
-                    prefixIcon: Icon(
-                      Icons.search,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                Row(
+          body: ListView.builder(
+            shrinkWrap: true,
+            itemCount: 1,
+            itemBuilder: (_, index) {
+              return  Container(
+                padding: const EdgeInsets.all(15),
+                child: const Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
-                    Image(image: AssetImage(AppAsset.delivery), height: 40),
-                    Padding(
-                      padding: EdgeInsets.only(left: 15),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Delivery",
-                            style: TextStyle(
-                                fontSize: 18,
-                                color: appColorPrimary,
-                                fontWeight: FontWeight.bold),
-                            textAlign: TextAlign.start,
-                          ),
-                          Text(
-                            "AEON Bình Dương P. Bình Hòa TP. Thuận An T...",
-                          ),
-                        ],
+                    TextField(
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(30)),
+                            borderSide: BorderSide.none),
+                        filled: true,
+                        hintStyle:
+                            TextStyle(color: Color.fromRGBO(171, 171, 171, 1)),
+                        hintText: "What would you like to drink today?",
+                        fillColor: appColorGray,
+                        prefixIcon: Icon(
+                          Icons.search,
+                        ),
                       ),
                     ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Image(image: AssetImage(AppAsset.delivery), height: 40),
+                        Padding(
+                          padding: EdgeInsets.only(left: 15),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Delivery",
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    color: appColorPrimary,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                "AEON Bình Dương P. Bình Hòa TP. Thuận An T...",
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 5, bottom: 10),
+                      child: Divider(
+                        color: appColorGray,
+                        height: 5,
+                      ),
+                    ),
+                    CategoryItem(),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    ProductGroup(nameGroup: "Featured products"),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    ProductList()
                   ],
                 ),
-                Padding(
-                  padding: EdgeInsets.only(top: 5, bottom: 10),
-                  child: Divider(
-                    color: appColorGray,
-                    height: 5,
-                  ),
-                ),
-                CategoryItem(),
-              ],
-            ),
+              );
+            },
           ),
         );
-      },
+
+       },
       onLoading: const SpinKitIndicator(type: SpinKitType.circle),
       onError: (error) => RetryDialog(
         title: "$error",

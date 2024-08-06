@@ -5,7 +5,7 @@ import 'optional.dart';
 import 'size.dart';
 
 @immutable
-class Item {
+class ProductItem {
   final String? id;
   final String? itemNo;
   final int? v;
@@ -30,7 +30,7 @@ class Item {
   final DateTime? updatedDate;
   final List<Optional>? optionals;
 
-  const Item({
+  const ProductItem({
     this.id,
     this.itemNo,
     this.v,
@@ -61,7 +61,7 @@ class Item {
     return 'Item(id: $id, itemNo: $itemNo, v: $v, basicItemNo: $basicItemNo, basicMatl: $basicMatl, id: $id, itemType: $itemType, mch2: $mch2, mch3: $mch3, mch4: $mch4, mch5: $mch5, mch6: $mch6, mediaItems: $mediaItems, mediaUrl: $mediaUrl, name: $name, price: $price, salePrice: $salePrice, seoName: $seoName, shortDesc: $shortDesc, size: $size, sizes: $sizes, subName: $subName, updatedDate: $updatedDate, optionals: $optionals)';
   }
 
-  factory Item.fromJson(Map<String, dynamic> json) => Item(
+  factory ProductItem.fromJson(Map<String, dynamic> json) => ProductItem(
         id: json['_id'] as String?,
         itemNo: json['itemNo'] as String?,
         v: json['__v'] as int?,
@@ -122,7 +122,7 @@ class Item {
         'optionals': optionals?.map((e) => e.toJson()).toList(),
       };
 
-  Item copyWith({
+  ProductItem copyWith({
     String? id,
     String? itemNo,
     int? v,
@@ -147,7 +147,7 @@ class Item {
     DateTime? updatedDate,
     List<Optional>? optionals,
   }) {
-    return Item(
+    return ProductItem(
       id: id ?? this.id,
       itemNo: itemNo ?? this.itemNo,
       v: v ?? this.v,
@@ -177,7 +177,7 @@ class Item {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    if (other is! Item) return false;
+    if (other is! ProductItem) return false;
     final mapEquals = const DeepCollectionEquality().equals;
     return mapEquals(other.toJson(), toJson());
   }
