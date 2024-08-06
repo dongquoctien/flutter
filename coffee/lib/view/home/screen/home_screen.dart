@@ -11,8 +11,8 @@ import 'package:coffee/view/product/widget/product_group.dart';
 import 'package:coffee/view/product/widget/product_list.dart';
 import 'package:coffee/viewmodel/home/home_page_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 import 'package:get/get.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -51,11 +51,25 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget bannerList(List<HeaderBanner> headerBanners) {
-    return CarouselSlider(
-      options: CarouselOptions(
+    // return CarouselSlider(
+    //   options: CarouselOptions(
+    //     autoPlay: true,
+    //     viewportFraction: 1.0,
+    //     enlargeCenterPage: false,
+    //     autoPlayInterval: const Duration(seconds: 3),
+    //   ),
+    //   items: headerBanners
+    //       .map((item) => Center(
+    //           child: Image.network(item.imageUrl!,
+    //               width: MediaQuery.of(context).size.width, fit: BoxFit.cover)))
+    //       .toList(),
+    // );
+
+    return ExpandableCarousel(
+      options: ExpandableCarouselOptions(
         autoPlay: true,
         viewportFraction: 1.0,
-        enlargeCenterPage: false,
+        
         autoPlayInterval: const Duration(seconds: 3),
       ),
       items: headerBanners
@@ -78,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
             shrinkWrap: true,
             itemCount: 1,
             itemBuilder: (_, index) {
-              return  Container(
+              return Container(
                 padding: const EdgeInsets.all(15),
                 child: const Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -147,8 +161,7 @@ class _HomeScreenState extends State<HomeScreen> {
             },
           ),
         );
-
-       },
+      },
       onLoading: const SpinKitIndicator(type: SpinKitType.circle),
       onError: (error) => RetryDialog(
         title: "$error",

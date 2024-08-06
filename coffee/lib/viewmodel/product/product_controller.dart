@@ -14,6 +14,7 @@ class ProductController extends GetxController
     int? pageNumber =1,
     int? pageSize =4,
     String? slug ="san pham noi bat",
+    int? storeCode =2001,
 
   }) async {
     change(null, status: RxStatus.loading());

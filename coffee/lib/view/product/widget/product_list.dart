@@ -21,6 +21,7 @@ class _ProductListState extends State<ProductList> {
   Widget build(BuildContext context) {
     return _productController.obx(
       (state) {
+        print(state);
         return generateProductItem(state?.items ?? []);
       },
       onError: (error) => RetryDialog(
@@ -31,23 +32,39 @@ class _ProductListState extends State<ProductList> {
     );
   }
 
-  Widget generateProductItem(List<ProductItem>? productItem) {
-    return const Column(
-      children: [
-        Row(
+  Widget generateProductItem(List<ProductItem> productItems) {
+    print("generateProductItem" + productItems.length.toString());
+    print(productItems);
+    final children = <Widget>[];
+    for (var i = 1; i <= productItems.length; i++) {
+      if (i % 2 == 0) {
+        if(productItems.length - i ==1) {
+          children.add(Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Expanded(child: ProductCardItem()),
-            Expanded(child: ProductCardItem()),
+            Expanded(child: ProductCardItem(productItem: productItems[i-1])),
           ],
-        ),
-      ],
-    );
+        ));
+        }
+        else {
+          children.add(Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Expanded(child: ProductCardItem(productItem: productItems[i-2],)),
+            Expanded(child: ProductCardItem(productItem: productItems[i-1])),
+          ],
+        ));
+        }
+       
+      }
+    }
+
+    return Column(children: children);
   }
 
   @override
   void initState() {
-    this._productController.getProducts();
+    _productController.getProducts();
     super.initState();
   }
 

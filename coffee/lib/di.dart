@@ -1,11 +1,14 @@
 import 'package:coffee/data/api/home/category_api.dart';
 import 'package:coffee/data/api/home/home_page_api.dart';
+import 'package:coffee/data/api/product/product_api.dart';
 import 'package:coffee/repository/home/category_repository.dart';
 import 'package:coffee/repository/home/home_page_repository.dart';
+import 'package:coffee/repository/product/product_repository.dart';
 import 'package:coffee/viewmodel/comment/controller/comment_controller.dart';
 import 'package:coffee/viewmodel/home/category_controller.dart';
 import 'package:coffee/viewmodel/home/home_page_controller.dart';
 import 'package:coffee/viewmodel/post/controller/post_controller.dart';
+import 'package:coffee/viewmodel/product/product_controller.dart';
 import 'package:coffee/viewmodel/todo/controller/todo_controller.dart';
 import 'package:coffee/viewmodel/user/controller/user_controller.dart';
 import 'package:coffee/repository/comment/comment_repository.dart';
@@ -97,5 +100,17 @@ Future<void> init() async {
   //Category Controller
   getIt.registerFactory(
     () => CategoryController(categoryRepository: getIt<CategoryRepository>()),
+  );
+
+    // Product api
+  getIt.registerLazySingleton<ProductApi>(
+      () => ProductApi(dioClient: getIt<DioClient>()));
+  // Product repository
+  getIt.registerLazySingleton<ProductRepository>(
+    () => ProductRepository(productApi: getIt<ProductApi>()),
+  );
+  //Product Controller
+  getIt.registerFactory(
+    () => ProductController(productRepository: getIt<ProductRepository>()),
   );
 }

@@ -1,4 +1,5 @@
 import 'package:coffee/core/app_style.dart';
+import 'package:coffee/data/model/product/product_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -6,8 +7,8 @@ import 'package:html/dom.dart' as dom;
 import 'package:html/parser.dart' as html_parser;
 
 class ProductCardItem extends StatefulWidget {
-  const ProductCardItem({super.key});
-  // final ProductItem productItem;
+  const ProductCardItem({super.key, required this.productItem});
+   final ProductItem productItem;
 
   @override
   State<ProductCardItem> createState() => _ProductCardItemState();
@@ -30,7 +31,7 @@ class _ProductCardItemState extends State<ProductCardItem> {
               children: [
                 Center(
                   child: Image.network(
-                    "https://hcm.fstorage.vn/images/2024/07/man-do-20240724044039.png",
+                    widget.productItem.mediaUrl ?? "",
                     height: 140,
                   ),
                 ),

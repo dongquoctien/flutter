@@ -28,7 +28,7 @@ class ProductItem {
   final List<Size>? sizes;
   final String? subName;
   final DateTime? updatedDate;
-  final List<Optional>? optionals;
+  // final List<Optional>? optionals;
 
   const ProductItem({
     this.id,
@@ -53,12 +53,12 @@ class ProductItem {
     this.sizes,
     this.subName,
     this.updatedDate,
-    this.optionals,
+    //this.optionals,
   });
 
   @override
   String toString() {
-    return 'Item(id: $id, itemNo: $itemNo, v: $v, basicItemNo: $basicItemNo, basicMatl: $basicMatl, id: $id, itemType: $itemType, mch2: $mch2, mch3: $mch3, mch4: $mch4, mch5: $mch5, mch6: $mch6, mediaItems: $mediaItems, mediaUrl: $mediaUrl, name: $name, price: $price, salePrice: $salePrice, seoName: $seoName, shortDesc: $shortDesc, size: $size, sizes: $sizes, subName: $subName, updatedDate: $updatedDate, optionals: $optionals)';
+    return 'Item(id: $id, itemNo: $itemNo, v: $v, basicItemNo: $basicItemNo, basicMatl: $basicMatl, id: $id, itemType: $itemType, mch2: $mch2, mch3: $mch3, mch4: $mch4, mch5: $mch5, mch6: $mch6, mediaItems: $mediaItems, mediaUrl: $mediaUrl, name: $name, price: $price, salePrice: $salePrice, seoName: $seoName, shortDesc: $shortDesc, size: $size, sizes: $sizes, subName: $subName, updatedDate: $updatedDate, optionals: )';
   }
 
   factory ProductItem.fromJson(Map<String, dynamic> json) => ProductItem(
@@ -90,9 +90,9 @@ class ProductItem {
         updatedDate: json['updatedDate'] == null
             ? null
             : DateTime.parse(json['updatedDate'] as String),
-        optionals: (json['optionals'] as List<dynamic>?)
-            ?.map((e) => Optional.fromJson(e as Map<String, dynamic>))
-            .toList(),
+        // optionals: (json['optionals'] as List<dynamic>?)
+        //     ?.map((e) => Optional.fromJson(e as Map<String, dynamic>))
+        //     .toList(),
       );
 
   Map<String, dynamic> toJson() => {
@@ -119,7 +119,7 @@ class ProductItem {
         'sizes': sizes?.map((e) => e.toJson()).toList(),
         'subName': subName,
         'updatedDate': updatedDate?.toIso8601String(),
-        'optionals': optionals?.map((e) => e.toJson()).toList(),
+       // 'optionals': optionals?.map((e) => e.toJson()).toList(),
       };
 
   ProductItem copyWith({
@@ -145,7 +145,7 @@ class ProductItem {
     List<Size>? sizes,
     String? subName,
     DateTime? updatedDate,
-    List<Optional>? optionals,
+  //  List<Optional>? optionals,
   }) {
     return ProductItem(
       id: id ?? this.id,
@@ -170,7 +170,7 @@ class ProductItem {
       sizes: sizes ?? this.sizes,
       subName: subName ?? this.subName,
       updatedDate: updatedDate ?? this.updatedDate,
-      optionals: optionals ?? this.optionals,
+    //  optionals: optionals ?? this.optionals,
     );
   }
 
@@ -206,6 +206,6 @@ class ProductItem {
       size.hashCode ^
       sizes.hashCode ^
       subName.hashCode ^
-      updatedDate.hashCode ^
-      optionals.hashCode;
+      updatedDate.hashCode ;
+   //   optionals.hashCode;
 }

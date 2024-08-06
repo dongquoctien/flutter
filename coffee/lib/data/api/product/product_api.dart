@@ -10,18 +10,16 @@ class ProductApi with ApiHelper<Product> {
 
   Future<Product> getProducts(
       {int? pageNumber, int? pageSize, String? slug}) async {
-    Map<String, dynamic> queryParameters = <String, dynamic>{};
+    Map<String, String> queryParameters = <String, String>{};
 
-    if (pageNumber != null && pageNumber > 0) {
-      queryParameters.addAll({'pageSize': pageSize});
+    if (pageSize != null && pageSize > 0) {
+      queryParameters.addAll({'pageSize': pageSize.toString()});
     }
-
     if (pageNumber != null && pageNumber > 0) {
-      queryParameters.addAll({'pageNumber': pageSize});
+      queryParameters.addAll({'pageNumber': pageNumber.toString()});
     }
-    queryParameters.addAll({'pageNumber': pageNumber});
     if (slug != null && slug != "") {
-      queryParameters.addAll({'slug': pageSize});
+      queryParameters.addAll({'slug': slug});
     }
 
     return await coffeeMakeGetRequest(
