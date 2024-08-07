@@ -11,22 +11,25 @@ class ProductController extends GetxController
   ProductController({required this.productRepository});
 
   Future<void> getProducts({
-    int? pageNumber =1,
-    int? pageSize =4,
-    String? slug ="san pham noi bat",
-    int? storeCode =2001,
-
+    int? pageNumber = 1,
+    int? pageSize = 4,
+    String? slug = "san pham noi bat",
+    int? storeCode = 2001,
   }) async {
     change(null, status: RxStatus.loading());
     Either<String, Product> failureOrSuccess =
-        (await productRepository.getProducts(pageNumber: pageNumber, pageSize: pageSize, slug: slug));
+        (await productRepository.getProducts(
+            pageNumber: pageNumber,
+            pageSize: pageSize,
+            slug: slug,
+            storeCode: storeCode));
 
     failureOrSuccess.fold(
       (String failure) {
         change(null, status: RxStatus.error(failure));
       },
       (Product product) {
-        if (product.isBlank ==true) {
+        if (product.isBlank == true) {
           change(null, status: RxStatus.empty());
         } else {
           change(product, status: RxStatus.success());

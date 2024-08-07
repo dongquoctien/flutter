@@ -9,9 +9,11 @@ class ProductRepository with RepositoryHelper<Product> {
   ProductRepository({required this.productApi});
 
   Future<Either<String, Product>> getProducts(
-      {int? pageNumber, int? pageSize, String? slug}) async {
+      {int? pageNumber, int? pageSize, String? slug, int? storeCode}) async {
     return checkDataResponse(productApi.getProducts(
-        pageNumber: pageSize, pageSize: pageSize, slug: slug));
+        pageNumber: pageNumber,
+        pageSize: pageSize,
+        slug: slug,
+        storeCode: storeCode));
   }
-
 }

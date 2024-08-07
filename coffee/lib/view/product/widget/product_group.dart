@@ -35,7 +35,8 @@ class ProductGroup extends StatelessWidget {
                     fontStyle: FontStyle.italic,
                     fontWeight: FontWeight.w400,
                     color: appColorPrimary,
-                    fontSize: 14,),
+                    fontSize: 14,
+                    decoration: TextDecoration.underline),
               ),
             ),
             const Padding(

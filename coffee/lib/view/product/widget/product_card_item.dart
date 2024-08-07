@@ -5,21 +5,26 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:html/dom.dart' as dom;
 import 'package:html/parser.dart' as html_parser;
+import 'package:intl/intl.dart';
 
 class ProductCardItem extends StatefulWidget {
   const ProductCardItem({super.key, required this.productItem});
-   final ProductItem productItem;
+  final ProductItem productItem;
 
   @override
   State<ProductCardItem> createState() => _ProductCardItemState();
 }
 
 class _ProductCardItemState extends State<ProductCardItem> {
+  var formartCurrency = NumberFormat.decimalPatternDigits(
+    locale: 'en_us',
+    decimalDigits: 0,
+  );
+
   @override
   Widget build(BuildContext context) {
     return Card(
       elevation: 1,
-     
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -35,17 +40,23 @@ class _ProductCardItemState extends State<ProductCardItem> {
                     height: 140,
                   ),
                 ),
-                Positioned(
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  child: Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                    color: Colors.red,
-                    child: Text(
-                      extractTextFromHtml("<p>Lục Bảo Tân Cương - Mới</p>"),
-                      style: const TextStyle(color: Colors.white),
+                Visibility(
+                  visible:
+                      extractTextFromHtml(widget.productItem.shortDesc ?? "") !=
+                          "",
+                  child: Positioned(
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 4),
+                      color: Colors.red,
+                      child: Text(
+                        // widget.productItem.shortDesc ?? "",
+                        extractTextFromHtml(widget.productItem.shortDesc ?? ""),
+                        style: const TextStyle(color: Colors.white),
+                      ),
                     ),
                   ),
                 ),
@@ -57,38 +68,39 @@ class _ProductCardItemState extends State<ProductCardItem> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                const SizedBox(height: 8,),
-                const Padding(
-                  padding:
-                      EdgeInsets.only( left: 8, right: 8),
+                const SizedBox(
+                  height: 8,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 8, right: 8),
                   child: Text(
-                    "Lục Trà Tân Cương Mận Đỏ (L)",
-                    style: TextStyle(
-                        fontSize: 16,
-                        overflow: TextOverflow.ellipsis,
-                        color: appColorPrimary,
-                        // fontWeight: FontWeight.w600
-                        ),
+                    widget.productItem.subName ?? "",
+                    style: const TextStyle(
+                      fontSize: 16,
+                      overflow: TextOverflow.ellipsis,
+                      color: appColorPrimary,
+                      // fontWeight: FontWeight.w600
+                    ),
                   ),
                 ),
-                const Row(
-                  
+                Row(
                   children: [
-                     Padding(
-                       padding: EdgeInsets.all(8.0),
-                       child: Text(
-                        "65.000 đ",
-                        style: TextStyle(
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        '${formartCurrency.format(widget.productItem.price ?? 0)} đ',
+                        style: const TextStyle(
                           fontSize: 16,
                           color: appColorPrimary,
                           fontWeight: FontWeight.w700,
                         ),
-                                           ),
-                     ),
+                      ),
+                    ),
                   ],
                 ),
                 Padding(
-                    padding: const EdgeInsets.only(bottom: 8.0, left: 8.0, right: 8.0),
+                    padding: const EdgeInsets.only(
+                        bottom: 8.0, left: 8.0, right: 8.0),
                     child: ElevatedButton(
                       onPressed: () => print("onBuy"),
                       style: const ButtonStyle(

@@ -16,6 +16,7 @@ class DioInterceptor extends Interceptor {
     logger.i('HTTP method => ${options.method} ');
     logger.i(
         'Request => ${options.baseUrl}${options.path}${options.queryParameters.format}');
+    logger.i('Query Parameters => ${options.queryParameters.toString()}');
     logger.i('Header  => ${options.headers}');
     return super.onRequest(options, handler);
   }

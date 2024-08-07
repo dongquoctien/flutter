@@ -9,17 +9,20 @@ class ProductApi with ApiHelper<Product> {
   ProductApi({required this.dioClient});
 
   Future<Product> getProducts(
-      {int? pageNumber, int? pageSize, String? slug}) async {
+      {int? pageNumber, int? pageSize, String? slug, int? storeCode}) async {
     Map<String, String> queryParameters = <String, String>{};
 
-    if (pageSize != null && pageSize > 0) {
+    if (pageSize != null) {
       queryParameters.addAll({'pageSize': pageSize.toString()});
     }
-    if (pageNumber != null && pageNumber > 0) {
+    if (pageNumber != null) {
       queryParameters.addAll({'pageNumber': pageNumber.toString()});
     }
-    if (slug != null && slug != "") {
+    if (slug != null) {
       queryParameters.addAll({'slug': slug});
+    }
+    if (storeCode != null) {
+      queryParameters.addAll({'storeCode': storeCode.toString()});
     }
 
     return await coffeeMakeGetRequest(

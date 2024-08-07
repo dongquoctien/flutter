@@ -38,13 +38,20 @@ extension IterableExtension<T> on Iterable<T> {
 
 extension MapExtension on Map {
   String get format {
+    // if (isEmpty) {
+    //   return "";
+    // } else {
+    //   var firstKey = entries.first.key;
+    //   var mapValues = entries.first.value;
+    //   return "?$firstKey=$mapValues";
+    // }
     if (isEmpty) {
       return "";
-    } else {
-      var firstKey = entries.first.key;
-      var mapValues = entries.first.value;
-      return "?$firstKey=$mapValues";
     }
+
+    Uri uri = Uri.parse("").replace(
+        queryParameters: map((key, value) => MapEntry(key, value.toString())));
+    return "?${uri.query}";
   }
 }
 
